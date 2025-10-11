@@ -1,0 +1,86 @@
+export default function Footer() {
+  return (
+    <footer className="bg-gray-800 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Clinic Info */}
+          <div>
+            <div className="text-xl font-bold text-teal-400 mb-4">
+              🦷 Oasis Dental
+            </div>
+            <p className="text-gray-300 text-sm mb-4">
+              Your comfort and oral health are our top priorities. We provide comprehensive dental care in a welcoming environment.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors">
+                <span className="sr-only">Facebook</span>
+                📘
+              </a>
+              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors">
+                <span className="sr-only">Twitter</span>
+                🐦
+              </a>
+              <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors">
+                <span className="sr-only">Instagram</span>
+                📷
+              </a>
+            </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li><a href="#" className="hover:text-teal-400 transition-colors">General Dentistry</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">Cosmetic Dentistry</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">Orthodontics</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">Oral Surgery</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">Emergency Care</a></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <div className="space-y-2 text-sm text-gray-300">
+              <div className="flex items-center">
+                <span className="mr-2">📍</span>
+                <span>123 Health Street<br />Medical District, City 12345</span>
+              </div>
+              <div className="flex items-center">
+                <span className="mr-2">📞</span>
+                <span>(555) 123-4567</span>
+              </div>
+              <div className="flex items-center">
+                <span className="mr-2">📧</span>
+                <span>info@oasisdental.com</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Stay Connected</h3>
+            <p className="text-sm text-gray-300 mb-4">
+              Subscribe to our newsletter for dental tips and appointment reminders.
+            </p>
+            <div className="flex">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 px-3 py-2 bg-gray-700 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
+              />
+              <button className="bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-r-lg transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
+          <p>&copy; 2025 Oasis Dental Clinic. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
