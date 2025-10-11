@@ -31,6 +31,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scrolling during animations */
 }
 
 /* Ensure the holy grail layout works properly */
@@ -38,6 +39,25 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Smooth animations for mobile sidebar */
+.mobile-sidebar-enter {
+  transform: translateY(-100%);
+}
+
+.mobile-sidebar-enter-active {
+  transform: translateY(0);
+  transition: transform 500ms ease-in-out;
+}
+
+.mobile-sidebar-exit {
+  transform: translateY(0);
+}
+
+.mobile-sidebar-exit-active {
+  transform: translateY(-100%);
+  transition: transform 500ms ease-in-out;
 }
 
 /* Custom scrollbar */
