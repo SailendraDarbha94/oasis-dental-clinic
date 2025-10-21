@@ -1,7 +1,9 @@
+import Image from 'next/image';
+
 export default function ServicesSection() {
   const services = [
     {
-      icon: "🦷",
+      icon: "oasis-logo",
       title: "General Dentistry",
       description: "Comprehensive oral health care including cleanings, fillings, and preventive treatments.",
       features: ["Regular Checkups", "Cleanings", "Fillings", "Root Canals"]
@@ -54,7 +56,19 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div key={index} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
-              <div className="text-4xl mb-4">{service.icon}</div>
+              <div className="text-4xl mb-4">
+                {service.icon === "oasis-logo" ? (
+                  <Image 
+                    src="/oasis-logo.png" 
+                    alt="Oasis Dental Clinic Logo" 
+                    width={48} 
+                    height={48}
+                    className="object-contain"
+                  />
+                ) : (
+                  service.icon
+                )}
+              </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
               <p className="text-gray-600 mb-4">{service.description}</p>
               <ul className="space-y-2">

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function MobileMenu() {
@@ -37,8 +38,15 @@ export default function MobileMenu() {
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={closeMenu}></div>
           <div className="fixed top-0 right-0 w-64 h-full bg-white shadow-xl">
             <div className="flex items-center justify-between p-4 border-b">
-              <div className="text-xl font-bold text-teal-600">
-                🦷 Oasis Dental
+              <div className="flex items-center text-xl font-bold text-teal-600">
+                <Image 
+                  src="/oasis-logo.png" 
+                  alt="Oasis Dental Clinic Logo" 
+                  width={28} 
+                  height={28}
+                  className="object-contain mr-2"
+                />
+                Oasis Dental
               </div>
               <button
                 onClick={closeMenu}

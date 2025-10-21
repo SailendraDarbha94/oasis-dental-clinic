@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white">
@@ -5,8 +7,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Clinic Info */}
           <div>
-            <div className="text-xl font-bold text-teal-400 mb-4">
-              🦷 Oasis Dental
+            <div className="flex items-center text-xl font-bold text-teal-400 mb-4">
+              <Image 
+                src="/oasis-logo.png" 
+                alt="Oasis Dental Clinic Logo" 
+                width={28} 
+                height={28}
+                className="object-contain mr-2"
+              />
+              Oasis Dental
             </div>
             <p className="text-gray-300 text-sm mb-4">
               Your comfort and oral health are our top priorities. We provide comprehensive dental care in a welcoming environment.

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function HeroSection() {
   return (
     <section id="home" className="bg-gradient-to-br from-teal-50 to-blue-50 py-20">
@@ -30,7 +32,13 @@ export default function HeroSection() {
               </div>
             </div>
             <div className="absolute top-4 right-4 bg-teal-100 rounded-full p-4">
-              <div className="text-3xl">🦷</div>
+              <Image 
+                src="/oasis-logo.png" 
+                alt="Oasis Dental Clinic Logo" 
+                width={48} 
+                height={48}
+                className="object-contain"
+              />
             </div>
           </div>
         </div>
