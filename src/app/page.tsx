@@ -17,9 +17,9 @@ export default function Home() {
         {/* Holy Grail Layout: Content Area */}
         <div className="flex-1 flex">
           {/* Sidebar - Hidden on mobile, visible on desktop */}
-          <div className="hidden lg:block w-80 flex-shrink-0">
+          {/* <div className="hidden lg:block w-80 flex-shrink-0">
             <Sidebar />
-          </div>
+          </div> */}
           
           {/* Main Content */}
           <main className="flex-1 overflow-hidden">
