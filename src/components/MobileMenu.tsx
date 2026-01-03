@@ -36,7 +36,7 @@ export default function MobileMenu() {
       {isOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={closeMenu}></div>
-          <div className="fixed top-0 right-0 w-64 h-full bg-white shadow-xl">
+          <div className="fixed top-0 right-0 w-48 max-w-[60vw] h-full bg-white shadow-xl">
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex items-center text-xl font-bold text-teal-600">
                 <Image 
