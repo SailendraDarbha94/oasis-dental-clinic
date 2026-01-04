@@ -4,14 +4,14 @@ export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Clinic Info */}
           <div>
             <div className="flex items-center text-xl font-bold text-teal-400 mb-4">
-              <Image 
-                src="/oasis-logo.png" 
-                alt="Oasis Dental Clinic Logo" 
-                width={28} 
+              <Image
+                src="/oasis-logo.png"
+                alt="Oasis Dental Clinic Logo"
+                width={28}
                 height={28}
                 className="object-contain mr-2"
               />
@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className='text-center'>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2 text-sm text-gray-300">
               <li><a href="#" className="hover:text-teal-400 transition-colors">General Dentistry</a></li>
@@ -49,16 +49,21 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div className=''>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <div className="space-y-2 text-sm text-gray-300">
               <div className="flex items-center">
-                <span className="mr-2">📍</span>
-                <span>123 Health Street<br />Medical District, City 12345</span>
+                <p className="">
+                  Oasis Dental/Aesthetic Clinic<br />
+                  A Sector<br />
+                  Papum Pare <br />
+                  Arunachal Pradesh <br />
+                  India - 791110
+                </p>
               </div>
               <div className="flex items-center">
                 <span className="mr-2">📞</span>
-                <span>(555) 123-4567</span>
+                <span>(+91) 9108980207</span>
               </div>
               <div className="flex items-center">
                 <span className="mr-2">📧</span>
@@ -68,7 +73,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-4">Stay Connected</h3>
             <p className="text-sm text-gray-300 mb-4">
               Subscribe to our newsletter for dental tips and appointment reminders.
@@ -83,11 +88,11 @@ export default function Footer() {
                 Subscribe
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; 2025 Oasis Dental Clinic. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <p>&copy; 2025 Oasis Dental Clinic. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
         </div>
       </div>
     </footer>

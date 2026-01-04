@@ -21,7 +21,7 @@ export default function Header() {
           </div>
           
           <nav className="hidden md:flex space-x-8">
-            <Link href="#home" className="text-gray-700 hover:text-teal-600 transition-colors">
+            <Link href="/" className="text-gray-700 hover:text-teal-600 transition-colors">
               Home
             </Link>
             <Link href="#services" className="text-gray-700 hover:text-teal-600 transition-colors">
@@ -42,7 +42,7 @@ export default function Header() {
           </div>
 
           {/* Mobile menu */}
-          <MobileMenu />
+          {/* <MobileMenu /> */}
         </div>
       </div>
     </header>

@@ -79,9 +79,9 @@ export default function ServicesSection() {
                   </li>
                 ))}
               </ul>
-              <button className="mt-4 text-teal-600 hover:text-teal-700 font-medium text-sm">
+              {/* <button className="mt-4 text-teal-600 hover:text-teal-700 font-medium text-sm">
                 Learn More →
-              </button>
+              </button> */}
             </div>
           ))}
         </div>

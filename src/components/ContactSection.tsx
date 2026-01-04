@@ -15,7 +15,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8">
-            <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
+            <h3 className="text-2xl font-bold mb-6">Feedback</h3>
             <form className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -60,18 +60,19 @@ export default function ContactSection() {
                   type="tel"
                   id="phone"
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-                  placeholder="(555) 123-4567"
+                  placeholder="(+91) 123-4567"
                 />
               </div>
               <div>
                 <label htmlFor="service" className="block text-sm font-medium mb-2">
-                  Service Interested In
+                  Service Availed
                 </label>
                 <select
                   id="service"
                   className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
                 >
                   <option value="" className="text-gray-800">Select a service</option>
+                  <option value="consultation" className="text-gray-800">Consultation</option>
                   <option value="general" className="text-gray-800">General Dentistry</option>
                   <option value="cosmetic" className="text-gray-800">Cosmetic Dentistry</option>
                   <option value="orthodontics" className="text-gray-800">Orthodontics</option>
@@ -108,27 +109,30 @@ export default function ContactSection() {
                 <div className="flex items-start">
                   <span className="text-2xl mr-4">📍</span>
                   <div>
-                    <h4 className="font-semibold mb-1">Address</h4>
-                    <p className="text-teal-100">
-                      123 Health Street<br />
-                      Medical District<br />
-                      City, State 12345
+                    <h4 className="font-semibold mb-1 text-xl">Address</h4>
+                    <p className="text-teal-100 font-bold">
+                      Oasis Dental/Aesthetic Clinic<br />
+                      A Sector<br />
+                      Papum Pare <br />
+                      Arunachal Pradesh <br />
+                      India - 791110
                     </p>
+                    <p className="text-teal-300">Landmark : Near Success Point</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <span className="text-2xl mr-4">📞</span>
                   <div>
                     <h4 className="font-semibold mb-1">Phone</h4>
-                    <p className="text-teal-100">(555) 123-4567</p>
-                    <p className="text-sm text-teal-200">Emergency: (555) 911-CARE</p>
+                    <p className="text-teal-100">9108980207</p>
+                    {/* <p className="text-sm text-teal-200">Emergency: (555) 911-CARE</p> */}
                   </div>
                 </div>
                 <div className="flex items-start">
                   <span className="text-2xl mr-4">📧</span>
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
-                    <p className="text-teal-100">info@oasisdental.com</p>
+                    <p className="text-teal-300">info@oasisdental.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
