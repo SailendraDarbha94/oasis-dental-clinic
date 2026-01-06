@@ -1,8 +1,13 @@
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
 import MobileMenu from './MobileMenu';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
+
+  const router = useRouter();
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +41,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
+            <button onClick={() => router.push('/appointment')} className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
               Book Appointment
             </button>
           </div>
