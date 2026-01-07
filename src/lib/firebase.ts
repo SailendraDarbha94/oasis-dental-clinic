@@ -1,6 +1,6 @@
 import { getApps, getApp, initializeApp } from "firebase/app";
 import { getAuth, browserLocalPersistence } from 'firebase/auth';
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, push, set, serverTimestamp } from "firebase/database";
 import { getStorage } from "firebase/storage";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
@@ -34,3 +34,32 @@ if (typeof window !== 'undefined') {
 }
 
 export default app;
+
+export type AppointmentRecord = {
+  id?: string;
+  name: string;
+  phone: string;
+  age?: string;
+  date: string;
+  time: string;
+  createdAt?: any;
+  status?: string;
+};
+
+export async function saveAppointmentToRTDB(appointment: AppointmentRecord) {
+  if (!appointment || !appointment.name || !appointment.phone || !appointment.date || !appointment.time) {
+    throw new Error("Missing required appointment fields");
+  }
+
+  const appointmentsRef = ref(database, "appointments");
+  console.log("Saving appointment to RTDB:", appointmentsRef);
+  const newRef = push(appointmentsRef);
+  const payload = {
+    ...appointment,
+    createdAt: serverTimestamp(),
+    status: "new",
+  };
+
+  await set(newRef, payload);
+  return newRef.key;
+}

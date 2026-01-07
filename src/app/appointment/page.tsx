@@ -1,7 +1,9 @@
 "use client";
+import Header from "@/components/Header";
 import { useToast } from "@/lib/toastContext";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { saveAppointmentToRTDB, AppointmentRecord } from "@/lib/firebase";
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 type FormData = {
@@ -40,6 +42,8 @@ export default function AppointmentPage() {
 
 	const [phoneError, setPhoneError] = useState<string | null>(null);
 
+	const [loading, setLoading] = useState(false);
+
 	const router = useRouter();
 	const { toast } = useToast();
 
@@ -69,7 +73,7 @@ export default function AppointmentPage() {
 		}
 	}
 
-	function handleSubmit(e: React.FormEvent) {
+	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		const missing = Object.entries(form).filter(([, v]) => v.toString().trim() === "");
 		if (missing.length) {
@@ -79,122 +83,131 @@ export default function AppointmentPage() {
 
 		if (!isValidPhone(form.phone)) {
 			setPhoneError("Phone number must be exactly 10 digits");
-			alert("Phone number must be exactly 10 digits.");
+			toast({ message: "Phone number must be exactly 10 digits.", type: "error" });
 			return;
 		}
 
-		const payload: FormData = {
+		const payload: AppointmentRecord = {
 			...form,
 			id: `${Date.now()}`,
-			createdAt: new Date().toISOString(),
 		};
 
-		// persist to localStorage so admin can view
-		saveAppointment(payload);
-
-		toast({ message: "Your Appointment is Booked", type: "success" });
-		console.log("Appointment submitted:", payload);
-		setSubmitted(true);
-		setTimeout(() => router.push("/"), 900);
+		setLoading(true);
+		try {
+			await saveAppointmentToRTDB(payload);
+			// persist to localStorage as fallback/admin view
+			saveAppointment({ ...form, id: payload.id, createdAt: new Date().toISOString() } as FormData);
+			toast({ message: "Your Appointment is Booked", type: "success" });
+			setSubmitted(true);
+			setTimeout(() => router.push("/"), 900);
+		} catch (err) {
+			console.error("Failed to save appointment to RTDB", err);
+			toast({ message: "Failed to submit appointment. Please try again.", type: "error" });
+		} finally {
+			setLoading(false);
+		}
 	}
 
 	return (
-		<main className="min-h-screen flex items-center justify-center py-12 px-4">
-			<div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8">
-				<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Book an Appointment</h1>
+		<>
+			<Header />
+			<main className="min-h-screen flex items-center justify-center py-12 px-4">
+				<div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8">
+					<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Book an Appointment</h1>
 
-				{submitted ? (
-					<div className="p-6 bg-teal-50 rounded-lg border border-teal-100">
-						<p className="text-teal-700 font-medium">Your appointment request was logged. Thank you!</p>
-					</div>
-				) : (
-					<form onSubmit={handleSubmit} noValidate className="space-y-4">
-						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-							<input
-								name="name"
-								type="text"
-								required
-								value={form.name}
-								onChange={handleChange}
-								placeholder="Full name"
-								className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-							/>
+					{submitted ? (
+						<div className="p-6 bg-teal-50 rounded-lg border border-teal-100">
+							<p className="text-teal-700 font-medium">Your appointment request was logged. Thank you!</p>
 						</div>
+					) : (
+						<form onSubmit={handleSubmit} noValidate className="space-y-4">
+							<div>
+								<label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+								<input
+									name="name"
+									type="text"
+									required
+									value={form.name}
+									onChange={handleChange}
+									placeholder="Full name"
+									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+								/>
+							</div>
 
-						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-							<input
-								name="phone"
-								type="tel"
-								inputMode="numeric"
-								pattern="\d*"
-								required
-								value={form.phone}
-								onChange={handleChange}
-								onBlur={handlePhoneBlur}
-								placeholder="Enter 10 digit phone number"
-								className={`w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 ${
-									phoneError
+							<div>
+								<label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+								<input
+									name="phone"
+									type="tel"
+									inputMode="numeric"
+									pattern="\d*"
+									required
+									value={form.phone}
+									onChange={handleChange}
+									onBlur={handlePhoneBlur}
+									placeholder="Enter 10 digit phone number"
+									className={`w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 ${phoneError
 										? "border-red-500 focus:ring-red-300"
 										: "border-gray-200 focus:ring-teal-300"
-								}`}
-							/>
-							{phoneError && <p className="mt-1 text-sm text-red-600">{phoneError}</p>}
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-							<div className="sm:col-span-1">
-								<label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-								<input
-									name="age"
-									type="number"
-									min={0}
-									required
-									value={form.age}
-									onChange={handleChange}
-									placeholder="Age"
-									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+										}`}
 								/>
+								{phoneError && <p className="mt-1 text-sm text-red-600">{phoneError}</p>}
 							</div>
 
-							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-								<input
-									name="date"
-									type="date"
-									required
-									value={form.date}
-									onChange={handleChange}
-									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-								/>
+							<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+								<div className="sm:col-span-1">
+									<label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+									<input
+										name="age"
+										type="number"
+										min={0}
+										required
+										value={form.age}
+										onChange={handleChange}
+										placeholder="Age"
+										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+									/>
+								</div>
+
+								<div>
+									<label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+									<input
+										name="date"
+										type="date"
+										required
+										value={form.date}
+										onChange={handleChange}
+										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+									/>
+								</div>
+
+								<div>
+									<label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
+									<input
+										name="time"
+										type="time"
+										required
+										value={form.time}
+										onChange={handleChange}
+										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+									/>
+								</div>
 							</div>
 
-							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
-								<input
-									name="time"
-									type="time"
-									required
-									value={form.time}
-									onChange={handleChange}
-									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-								/>
+							<div className="pt-2">
+								<button
+									type="submit"
+									disabled={loading}
+									className={`w-full ${loading ? "opacity-60 cursor-not-allowed" : ""} bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold shadow-sm transition-colors`}
+								>
+									{loading ? "Submitting..." : "Submit"}
+								</button>
 							</div>
-						</div>
-
-						<div className="pt-2">
-							<button
-								type="submit"
-								className="w-full bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold shadow-sm transition-colors"
-							>
-								Submit
-							</button>
-						</div>
-					</form>
-				)}
-			</div>
-		</main>
+						</form>
+					)}
+				</div>
+			</main>
+		</>
 	);
 }
 
