@@ -38,19 +38,48 @@ export default function AppointmentPage() {
 
 	const [submitted, setSubmitted] = useState(false);
 
+	const [phoneError, setPhoneError] = useState<string | null>(null);
+
 	const router = useRouter();
 	const { toast } = useToast();
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
+		if (name === "phone") {
+			// Allow only digits and cap to 10 characters while typing
+			const digits = value.replace(/\D/g, "").slice(0, 10);
+			setForm((s) => ({ ...s, phone: digits }));
+			// clear error while typing until blur/submit
+			if (phoneError) setPhoneError(null);
+			return;
+		}
+
 		setForm((s) => ({ ...s, [name]: value }));
+	}
+
+	function isValidPhone(p: string) {
+		return /^\d{10}$/.test(p);
+	}
+
+	function handlePhoneBlur() {
+		if (!isValidPhone(form.phone)) {
+			setPhoneError("Phone number must be exactly 10 digits");
+		} else {
+			setPhoneError(null);
+		}
 	}
 
 	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		const missing = Object.entries(form).filter(([, v]) => v.toString().trim() === "");
 		if (missing.length) {
-			alert("Please fill all required fields.");
+			toast({ message: "Please fill all required fields.", type: "error" });
+			return;
+		}
+
+		if (!isValidPhone(form.phone)) {
+			setPhoneError("Phone number must be exactly 10 digits");
+			alert("Phone number must be exactly 10 digits.");
 			return;
 		}
 
@@ -98,12 +127,20 @@ export default function AppointmentPage() {
 							<input
 								name="phone"
 								type="tel"
+								inputMode="numeric"
+								pattern="\d*"
 								required
 								value={form.phone}
 								onChange={handleChange}
-								placeholder="e.g. +1 555 555 5555"
-								className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+								onBlur={handlePhoneBlur}
+								placeholder="Enter 10 digit phone number"
+								className={`w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 ${
+									phoneError
+										? "border-red-500 focus:ring-red-300"
+										: "border-gray-200 focus:ring-teal-300"
+								}`}
 							/>
+							{phoneError && <p className="mt-1 text-sm text-red-600">{phoneError}</p>}
 						</div>
 
 						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

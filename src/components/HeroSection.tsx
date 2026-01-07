@@ -1,6 +1,11 @@
+"use client";
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export default function HeroSection() {
+
+  const router = useRouter();
+
   return (
     <section id="home" className="bg-gradient-to-br from-teal-50 to-blue-50 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +20,7 @@ export default function HeroSection() {
               Our team of experienced professionals is dedicated to maintaining your oral health and creating beautiful smiles.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg">
+              <button onClick={() => router.push('/appointment')} className="bg-teal-600 hover:cursor-pointer hover:bg-teal-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg">
                 Book Your Appointment
               </button>
               <button className="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">

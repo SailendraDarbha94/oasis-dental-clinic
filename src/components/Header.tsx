@@ -41,7 +41,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <button onClick={() => router.push('/appointment')} className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
+            <button onClick={() => router.push('/appointment')} className="bg-teal-600 hover:cursor-pointer hover:bg-teal-700 text-white px-6 py-2 rounded-lg transition-colors">
               Book Appointment
             </button>
           </div>
