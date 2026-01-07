@@ -38,13 +38,10 @@ export default function Footer() {
 
           {/* Services */}
           <div className='text-center'>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <h3 className="text-lg font-semibold mb-4">Pages</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li><a href="#" className="hover:text-teal-400 transition-colors">General Dentistry</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">Cosmetic Dentistry</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">Orthodontics</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">Oral Surgery</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">Emergency Care</a></li>
+              <li><a href="/privacy" className="hover:text-teal-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/admin/login" className="hover:text-teal-400 transition-colors">Admin Login</a></li>
             </ul>
           </div>
 

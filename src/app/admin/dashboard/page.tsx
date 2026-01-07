@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { database, auth } from "@/lib/firebase";
+import { database } from "@/lib/firebase";
 import { ref, onValue, off, remove } from "firebase/database";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 
 type Appointment = {
@@ -18,28 +16,6 @@ type Appointment = {
 };
 
 export default function AdminPage() {
-
-	const router = useRouter();
-
-	useEffect(() => {
-		const unsub = onAuthStateChanged(auth, (user) => {
-			if (!user) {
-				router.push("/admin/login");
-			}
-		});
-
-		return () => unsub();
-	}, [router]);
-
-	async function handleLogout() {
-		try {
-			await signOut(auth);
-			// onAuthStateChanged will redirect
-		} catch (err) {
-			console.error("Logout failed", err);
-		}
-	}
-
 	const [appointments, setAppointments] = useState<Appointment[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -127,13 +103,6 @@ export default function AdminPage() {
 								className="bg-gray-50 text-gray-700 px-4 py-2 rounded-md border border-gray-100 hover:bg-gray-100"
 							>
 								Clear
-							</button>
-
-							<button
-								onClick={handleLogout}
-								className="bg-red-50 text-red-700 px-4 py-2 rounded-md border border-red-100 hover:bg-red-100"
-							>
-								Logout
 							</button>
 						</div>
 					</div>

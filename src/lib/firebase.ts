@@ -51,7 +51,7 @@ export async function saveAppointmentToRTDB(appointment: AppointmentRecord) {
     throw new Error("Missing required appointment fields");
   }
 
-  const appointmentsRef = ref(database, "appointments");
+  const appointmentsRef = ref(database, "oasis/appointments");
   console.log("Saving appointment to RTDB:", appointmentsRef);
   const newRef = push(appointmentsRef);
   const payload = {

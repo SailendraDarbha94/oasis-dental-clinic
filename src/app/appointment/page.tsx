@@ -99,7 +99,7 @@ export default function AppointmentPage() {
 			saveAppointment({ ...form, id: payload.id, createdAt: new Date().toISOString() } as FormData);
 			toast({ message: "Your Appointment is Booked", type: "success" });
 			setSubmitted(true);
-			setTimeout(() => router.push("/"), 900);
+			setTimeout(() => router.push("/"), 1500);
 		} catch (err) {
 			console.error("Failed to save appointment to RTDB", err);
 			toast({ message: "Failed to submit appointment. Please try again.", type: "error" });
