@@ -8,22 +8,22 @@ export default function AboutSection() {
 
   const teamMembers = [
     {
-      name: "Dr. Sarah Johnson",
-      role: "Lead Dentist & Founder",
+      name: "Dr. Nani Monia",
+      role: "Founder",
       image: "👩‍⚕️",
-      description: "15+ years of experience in general and cosmetic dentistry."
+      description: "Sample text about Dr. Nani Monia, her qualifications, and dedication to patient care."
     },
     {
-      name: "Dr. Michael Chen",
+      name: "Dr. Taw Meepu",
       role: "Orthodontist",
-      image: "👨‍⚕️",
+      image: "👩‍⚕️",
       description: "Specialist in braces, aligners, and bite correction treatments."
     },
     {
-      name: "Dr. Emily Rodriguez",
-      role: "Oral Surgeon",
-      image: "👩‍⚕️",
-      description: "Expert in complex extractions and dental implant procedures."
+      name: "Dr. Farhan Khan",
+      role: "Oral & Maxillofacial Surgeon",
+      image: "👨‍⚕️",
+      description: "Expert in complex extractions and dental surgery procedures."
     }
   ];
 
@@ -36,10 +36,26 @@ export default function AboutSection() {
             About Oasis Dental Clinic
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12">
-            Founded in 2010, Oasis Dental Clinic has been serving the community with exceptional 
-            dental care. Our state-of-the-art facility combines cutting-edge technology with 
+            Founded in 2024, Oasis Dental Clinic has been serving the community with exceptional
+            dental care. Our state-of-the-art facility combines cutting-edge technology with
             a warm, welcoming atmosphere to ensure every patient receives the best possible care.
           </p>
+        </div>
+        <div className="flex flex-wrap justify-center mb-8">
+          <div className="w-full lg:w-1/2 p-4">
+            <img
+              src="/niamonani.jpg"
+              alt="Dr. Nani Monia"
+              className="w-full h-auto max-h-96 rounded-xl object-cover shadow-md"
+            />
+          </div>
+          <div className="w-full lg:w-1/2 p-4">
+            <img
+              src="/treatment-sample.jpg"
+              alt="Treatment image of the clinic"
+              className="w-full h-auto max-h-96 rounded-xl object-cover shadow-md"
+            />
+          </div>
         </div>
 
         {/* Stats */}
@@ -59,11 +75,11 @@ export default function AboutSection() {
           <div className="bg-white rounded-xl p-8 shadow-md">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
             <p className="text-gray-600 mb-4">
-              To provide exceptional, personalized dental care in a comfortable environment 
+              To provide exceptional, personalized dental care in a comfortable environment
               while building lasting relationships with our patients and community.
             </p>
             <p className="text-gray-600">
-              We believe that everyone deserves a healthy, beautiful smile, and we're 
+              We believe that everyone deserves a healthy, beautiful smile, and we're
               committed to making that a reality for each of our patients.
             </p>
           </div>
