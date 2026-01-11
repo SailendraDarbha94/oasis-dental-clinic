@@ -33,7 +33,7 @@ export default function HeroSection() {
               <div className="text-center">
                 <div className="text-6xl mb-4">😊</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Happy Patients</h3>
-                <p className="text-gray-600">Over 10,000 satisfied patients and counting!</p>
+                <p className="text-gray-600">Over 100+ satisfied patients and counting!</p>
               </div>
             </div>
             <div className="absolute top-4 right-4 bg-teal-100 rounded-full p-4">

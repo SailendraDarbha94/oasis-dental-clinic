@@ -9,22 +9,22 @@ export default function AboutSection() {
   const teamMembers = [
     {
       name: "Dr. Nani Monia",
-      role: "Founder",
+      role: "Founder & General Dentist",
       image: "👩‍⚕️",
-      description: "Sample text about Dr. Nani Monia, her qualifications, and dedication to patient care."
-    },
-    {
-      name: "Dr. Taw Meepu",
-      role: "Orthodontist",
-      image: "👩‍⚕️",
-      description: "Specialist in braces, aligners, and bite correction treatments."
+      description: "BDS, (Rajiv Gandhi University of Health Sciences)"
     },
     {
       name: "Dr. Farhan Khan",
       role: "Oral & Maxillofacial Surgeon",
       image: "👨‍⚕️",
-      description: "Expert in complex extractions and dental surgery procedures."
-    }
+      description: "BDS, MDS OMFS (Rajiv Gandhi University of Health Sciences) Fellowship in Maxillofacial Trauma (Manipal Hospital) AO CMF Certified (Davos, Switzerland)"
+    },
+    {
+      name: "Dr. Taw Mepu",
+      role: "Orthodontist",
+      image: "👩‍⚕️",
+      description: "Specialist in braces, aligners, and bite correction treatments."
+    },
   ];
 
   return (
@@ -44,7 +44,7 @@ export default function AboutSection() {
         <div className="flex flex-wrap justify-center mb-8">
           <div className="w-full lg:w-1/2 p-4">
             <img
-              src="/niamonani.jpg"
+              src="/toothSample.jpeg"
               alt="Dr. Nani Monia"
               className="w-full h-auto max-h-96 rounded-xl object-cover shadow-md"
             />
