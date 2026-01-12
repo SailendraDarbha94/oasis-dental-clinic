@@ -16,16 +16,16 @@ export default function HeroSection() {
               <span className="text-teal-600"> Priority</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              Experience exceptional dental care in a comfortable, modern environment. 
+              Experience exceptional dental care in a comfortable, modern environment.
               Our team of experienced professionals is dedicated to maintaining your oral health and creating beautiful smiles.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button onClick={() => router.push('/appointment')} className="bg-teal-600 hover:cursor-pointer hover:bg-teal-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg">
                 Book Your Appointment
               </button>
-              <button className="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+              <a target='_blank' href='https://www.instagram.com/oasis.dac?igsh=MWk5aTZ0bTJxaG96bw%3D%3D&utm_source=qr' className="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
                 Learn More
-              </button>
+              </a>
             </div>
           </div>
           <div className="relative">
@@ -37,10 +37,10 @@ export default function HeroSection() {
               </div>
             </div>
             <div className="absolute top-4 right-4 bg-teal-100 rounded-full p-4">
-              <Image 
-                src="/oasis-logo.png" 
-                alt="Oasis Dental Clinic Logo" 
-                width={48} 
+              <Image
+                src="/oasis-logo.png"
+                alt="Oasis Dental Clinic Logo"
+                width={48}
                 height={48}
                 className="object-contain"
               />

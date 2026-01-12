@@ -5,6 +5,7 @@ import { ref, onValue, off, remove } from "firebase/database";
 import { onAuthStateChanged, User, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
+import ConfirmModal from "@/components/ConfirmModal";
 
 type Appointment = {
 	id?: string;
@@ -80,16 +81,40 @@ export default function AdminPage() {
 		};
 	}, [user]);
 
-	async function deleteOne(id?: string) {
-		if (!id) return;
-		if (!confirm("Delete this appointment?")) return;
-		try {
-			console.log("Deleting appointment", id);
-			await remove(ref(database, `oasis/appointments/${id}`));
-		} catch (err) {
-			console.error("Failed to delete appointment", err);
-			setError("Failed to delete appointment");
-		}
+	async function deleteOne(firebaseKey?: string) {
+	 	if (!firebaseKey) return;
+	 	try {
+	 		console.log("Deleting appointment", firebaseKey);
+	 		await remove(ref(database, `oasis/appointments/${firebaseKey}`));
+	 	} catch (err) {
+	 		console.error("Failed to delete appointment", err);
+	 		setError("Failed to delete appointment");
+	 	}
+	}
+
+	const [confirmOpen, setConfirmOpen] = useState(false);
+	const [pendingDeleteKey, setPendingDeleteKey] = useState<string | null>(null);
+	const [pendingDeleteName, setPendingDeleteName] = useState<string | null>(null);
+
+	function showDeleteConfirm(key?: string, name?: string) {
+	 	if (!key) return;
+	 	setPendingDeleteKey(key);
+	 	setPendingDeleteName(name ?? null);
+	 	setConfirmOpen(true);
+	}
+
+	async function handleConfirmDelete() {
+	 	if (!pendingDeleteKey) return;
+	 	await deleteOne(pendingDeleteKey);
+	 	setPendingDeleteKey(null);
+	 	setPendingDeleteName(null);
+	 	setConfirmOpen(false);
+	}
+
+	function handleCancelDelete() {
+	 	setPendingDeleteKey(null);
+	 	setPendingDeleteName(null);
+	 	setConfirmOpen(false);
 	}
 
 	async function logout() {
@@ -183,7 +208,7 @@ export default function AdminPage() {
 									</tr>
 								) : (
 									filtered.map((a) => (
-										<tr key={a.id} className="border-t">
+										<tr key={a.firebaseKey} className="border-t">
 											<td className="px-6 py-4 align-top">
 												<div className="font-medium text-gray-900">{a.name}</div>
 											</td>
@@ -193,7 +218,7 @@ export default function AdminPage() {
 											<td className="px-6 py-4 align-top">{a.time}</td>
 											<td className="px-6 py-4 align-top text-sm text-gray-500">{formatCreated(a.createdAt)}</td>
 											<td className="px-6 py-4 align-top">
-												<button onClick={() => deleteOne(a.firebaseKey)} className="text-sm text-red-600 hover:underline">
+												<button onClick={() => showDeleteConfirm(a.firebaseKey, a.name)} className="text-sm text-red-600 hover:underline">
 													Delete
 												</button>
 											</td>
@@ -203,6 +228,15 @@ export default function AdminPage() {
 							</tbody>
 						</table>
 					</div>
+					<ConfirmModal
+						open={confirmOpen}
+						title="Delete appointment"
+						description={pendingDeleteName ? `Delete appointment for ${pendingDeleteName}? This action cannot be undone.` : "Delete this appointment? This action cannot be undone."}
+						onConfirm={handleConfirmDelete}
+						onCancel={handleCancelDelete}
+						confirmLabel="Delete"
+						cancelLabel="Cancel"
+					/>
 				</div>
 			</main>
 		</>
