@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { database } from "@/lib/firebase";
+import { database, auth } from "@/lib/firebase";
 import { ref, onValue, off, remove } from "firebase/database";
+import { onAuthStateChanged, User, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 
 type Appointment = {
 	id?: string;
+	firebaseKey?: string;
 	name: string;
 	phone: string;
 	age?: string;
@@ -16,12 +19,32 @@ type Appointment = {
 };
 
 export default function AdminPage() {
+	const router = useRouter();
+
+	// undefined = checking, null = unauthenticated, User = authenticated
+	const [user, setUser] = useState<User | null | undefined>(undefined);
+
 	const [appointments, setAppointments] = useState<Appointment[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [queryText, setQueryText] = useState("");
 
+	// Listen for auth state changes and redirect unauthenticated users
 	useEffect(() => {
+		const unsub = onAuthStateChanged(auth, (u) => {
+			setUser(u);
+			if (!u) {
+				router.replace("/");
+			}
+		});
+		return () => unsub();
+	}, [router]);
+
+	// Load appointments only when the user is authenticated
+	useEffect(() => {
+		if (user === undefined) return; // still checking
+		if (!user) return; // unauthenticated - we've already redirected
+
 		setLoading(true);
 		setError(null);
 		const appointmentsRef = ref(database, "oasis/appointments");
@@ -33,7 +56,8 @@ export default function AdminPage() {
 				setLoading(false);
 				return;
 			}
-			const list: Appointment[] = Object.entries(val).map(([key, v]) => ({ id: key, ...(v as any) }));
+			console.log("Raw appointments data", val);
+			const list: Appointment[] = Object.entries(val).map(([key, v]) => ({ firebaseKey: key, ...(v as any) }));
 			// sort by createdAt desc if available
 			list.sort((a, b) => {
 				const ta = a.createdAt ?? 0;
@@ -41,6 +65,7 @@ export default function AdminPage() {
 				return tb - ta;
 			});
 			setAppointments(list);
+			console.log("Loaded appointments", list);
 			setLoading(false);
 		};
 
@@ -53,16 +78,27 @@ export default function AdminPage() {
 		return () => {
 			off(appointmentsRef, "value", handleSnapshot);
 		};
-	}, []);
+	}, [user]);
 
 	async function deleteOne(id?: string) {
 		if (!id) return;
 		if (!confirm("Delete this appointment?")) return;
 		try {
+			console.log("Deleting appointment", id);
 			await remove(ref(database, `oasis/appointments/${id}`));
 		} catch (err) {
 			console.error("Failed to delete appointment", err);
 			setError("Failed to delete appointment");
+		}
+	}
+
+	async function logout() {
+		try {
+			await signOut(auth);
+			router.replace("/");
+		} catch (err) {
+			console.error("Sign out failed", err);
+			setError("Failed to sign out");
 		}
 	}
 
@@ -103,6 +139,12 @@ export default function AdminPage() {
 								className="bg-gray-50 text-gray-700 px-4 py-2 rounded-md border border-gray-100 hover:bg-gray-100"
 							>
 								Clear
+							</button>
+							<button
+								onClick={logout}
+								className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+							>
+								Logout
 							</button>
 						</div>
 					</div>
@@ -151,7 +193,7 @@ export default function AdminPage() {
 											<td className="px-6 py-4 align-top">{a.time}</td>
 											<td className="px-6 py-4 align-top text-sm text-gray-500">{formatCreated(a.createdAt)}</td>
 											<td className="px-6 py-4 align-top">
-												<button onClick={() => deleteOne(a.id)} className="text-sm text-red-600 hover:underline">
+												<button onClick={() => deleteOne(a.firebaseKey)} className="text-sm text-red-600 hover:underline">
 													Delete
 												</button>
 											</td>

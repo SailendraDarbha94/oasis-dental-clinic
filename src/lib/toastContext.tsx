@@ -41,7 +41,7 @@ const ToastContextProvider = ({
         setTimeout(() => {
           setToastMessage("");
         }, 300);
-      }, 4000);
+      }, 2500);
 
       // Clean up the timer when the component unmounts or visibility changes
       return () => clearTimeout(timer);

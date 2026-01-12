@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { useToast } from "@/lib/toastContext";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -11,10 +12,15 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  const { toast } = useToast();
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        router.push("/admin");
+        toast({ type: "success", message: "Redirecting to dashboard..." });
+        setTimeout(() => {
+          router.replace("/admin/dashboard");
+        }, 900);
       }
     });
     return () => unsub();
