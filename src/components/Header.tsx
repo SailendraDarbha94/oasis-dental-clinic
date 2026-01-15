@@ -13,7 +13,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <div className="flex items-center text-2xl font-bold text-teal-600">
+            <div onClick={() => router.push('/')} className="flex hover:cursor-pointer items-center text-2xl font-bold text-teal-600">
               <Image 
                 src="/oasis-logo.png" 
                 alt="Oasis Dental Clinic Logo" 

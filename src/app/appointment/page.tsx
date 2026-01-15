@@ -109,11 +109,11 @@ export default function AppointmentPage() {
 	}
 
 	return (
-		<>
+		<div className="min-h-screen bg-gradient-to-r from-pink-400 via-pink-200 to-yellow-100 flex flex-col">
 			<Header />
-			<main className="min-h-screen flex items-center justify-center py-12 px-4">
+			<main className=" flex items-center justify-center py-12 px-4">
 				<div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8">
-					<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Book an Appointment</h1>
+					<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Book An Appointment</h1>
 
 					{submitted ? (
 						<div className="p-6 bg-teal-50 rounded-lg border border-teal-100">
@@ -207,7 +207,7 @@ export default function AppointmentPage() {
 					)}
 				</div>
 			</main>
-		</>
+		</div>
 	);
 }
 

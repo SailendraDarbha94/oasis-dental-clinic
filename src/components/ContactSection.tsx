@@ -112,7 +112,7 @@ export default function ContactSection() {
                     <h4 className="font-semibold mb-1 text-xl">Address</h4>
                     <p className="text-teal-100 font-bold">
                       Oasis Dental/Aesthetic Clinic<br />
-                      A Sector<br />
+                      A Sector Naharlagun<br />
                       Papum Pare <br />
                       Arunachal Pradesh <br />
                       India - 791110

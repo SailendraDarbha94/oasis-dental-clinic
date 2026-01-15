@@ -1,9 +1,9 @@
 export default function AboutSection() {
   const stats = [
-    { number: "15+", label: "Years Experience" },
-    { number: "10,000+", label: "Happy Patients" },
-    { number: "5", label: "Expert Dentists" },
-    { number: "24/7", label: "Emergency Care" }
+    { number: "5+", label: "Years Experience" },
+    { number: "1000+", label: "Happy Patients" },
+    { number: "3", label: "Expert Dentists" },
+    { number: "24/7*365", label: "Expert Care" }
   ];
 
   const teamMembers = [
@@ -17,7 +17,7 @@ export default function AboutSection() {
       name: "Dr. Farhan Khan",
       role: "Oral & Maxillofacial Surgeon",
       image: "👨‍⚕️",
-      description: "BDS, MDS OMFS (Rajiv Gandhi University of Health Sciences) Fellowship in Maxillofacial Trauma (Manipal Hospital) AO CMF Certified (Davos, Switzerland)"
+      description: "Oral & Maxillofacial Surgeon\nFellowship in Maxillofacial Trauma (Manipal Hospital) AO CMF Certified (Davos, Switzerland)"
     },
     {
       name: "Dr. Taw Mepu",
@@ -36,7 +36,7 @@ export default function AboutSection() {
             About Oasis Dental Clinic
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-12">
-            Founded in 2024, Oasis Dental Clinic has been serving the community with exceptional
+            Founded in 2025, Oasis Dental Clinic has been serving the community with exceptional
             dental care. Our state-of-the-art facility combines cutting-edge technology with
             a warm, welcoming atmosphere to ensure every patient receives the best possible care.
           </p>
@@ -51,7 +51,7 @@ export default function AboutSection() {
           </div>
           <div className="w-full lg:w-1/2 p-4">
             <img
-              src="/treatment-sample.jpg"
+              src="/little-girl-getting-treatment.jpeg"
               alt="Treatment image of the clinic"
               className="w-full h-auto max-h-96 rounded-xl object-cover shadow-md"
             />
