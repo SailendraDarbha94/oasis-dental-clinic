@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { database, auth } from "@/lib/firebase";
-import { ref, onValue, off, remove } from "firebase/database";
+import { ref, onValue, off, remove, update } from "firebase/database";
 import { onAuthStateChanged, User, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
@@ -96,7 +96,7 @@ export default function AdminPage() {
 	 	if (!firebaseKey) return;
 	 	try {
 	 		console.log("Marking appointment as completed", firebaseKey);
-	 		await remove(ref(database, `oasis/appointments/${firebaseKey}`));
+	 		await update(ref(database, `oasis/appointments/${firebaseKey}`), { status: "completed" });
 	 	} catch (err) {
 	 		console.error("Failed to mark appointment as completed", err);
 	 		setError("Failed to mark appointment as completed");
@@ -233,9 +233,15 @@ export default function AdminPage() {
 											<div>
 												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</p>
 												<p className="text-gray-900 font-medium mt-1">
+												{a.status === "completed" ? (
+													<span className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+														Completed
+													</span>
+												) : (
 													<span className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
 														Pending
 													</span>
+												)}
 												</p>
 											</div>
 										</div>
