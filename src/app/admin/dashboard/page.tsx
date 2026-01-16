@@ -92,6 +92,17 @@ export default function AdminPage() {
 	 	}
 	}
 
+	async function markAsCompleted(firebaseKey?: string) {
+	 	if (!firebaseKey) return;
+	 	try {
+	 		console.log("Marking appointment as completed", firebaseKey);
+	 		await remove(ref(database, `oasis/appointments/${firebaseKey}`));
+	 	} catch (err) {
+	 		console.error("Failed to mark appointment as completed", err);
+	 		setError("Failed to mark appointment as completed");
+	 	}
+	}
+
 	const [confirmOpen, setConfirmOpen] = useState(false);
 	const [pendingDeleteKey, setPendingDeleteKey] = useState<string | null>(null);
 	const [pendingDeleteName, setPendingDeleteName] = useState<string | null>(null);
@@ -147,86 +158,106 @@ export default function AdminPage() {
 		<>
 			<Header />
 			<main className="min-h-screen bg-gray-50 p-8">
-				<div className="max-w-6xl mx-auto">
-					<div className="flex items-center justify-between mb-6">
-						<h1 className="text-2xl font-bold text-gray-900">Admin — Appointments</h1>
+				<div className="max-w-5xl mx-auto">
+					<div className="flex items-center justify-between mb-8">
+						<h1 className="text-3xl font-bold text-gray-900">Appointments</h1>
 						<div className="flex items-center gap-3">
 							<input
 								value={queryText}
 								onChange={(e) => setQueryText(e.target.value)}
 								placeholder="Search name or phone"
-								className="px-3 py-2 rounded-md border border-gray-200"
+								className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
 							/>
 							<button
 								onClick={() => {
 									setQueryText("");
 								}}
-								className="bg-gray-50 text-gray-700 px-4 py-2 rounded-md border border-gray-100 hover:bg-gray-100"
+								className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors"
 							>
 								Clear
 							</button>
 							<button
 								onClick={logout}
-								className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+								className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
 							>
 								Logout
 							</button>
 						</div>
 					</div>
 
-					<div className="bg-white rounded-2xl shadow overflow-hidden">
-						<table className="w-full text-left">
-							<thead className="bg-teal-50">
-								<tr>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Name</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Phone</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Age</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Date</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Time</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Created</th>
-									<th className="px-6 py-3 text-sm font-medium text-gray-600">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{loading ? (
-									<tr>
-										<td colSpan={7} className="px-6 py-8 text-center text-gray-500">
-											Loading appointments...
-										</td>
-									</tr>
-								) : error ? (
-									<tr>
-										<td colSpan={7} className="px-6 py-8 text-center text-red-500">
-											{error}
-										</td>
-									</tr>
-								) : filtered.length === 0 ? (
-									<tr>
-										<td colSpan={7} className="px-6 py-8 text-center text-gray-500">
-											No appointments yet.
-										</td>
-									</tr>
-								) : (
-									filtered.map((a) => (
-										<tr key={a.firebaseKey} className="border-t">
-											<td className="px-6 py-4 align-top">
-												<div className="font-medium text-gray-900">{a.name}</div>
-											</td>
-											<td className="px-6 py-4 align-top">{a.phone}</td>
-											<td className="px-6 py-4 align-top">{a.age ?? "-"}</td>
-											<td className="px-6 py-4 align-top">{a.date}</td>
-											<td className="px-6 py-4 align-top">{a.time}</td>
-											<td className="px-6 py-4 align-top text-sm text-gray-500">{formatCreated(a.createdAt)}</td>
-											<td className="px-6 py-4 align-top">
-												<button onClick={() => showDeleteConfirm(a.firebaseKey, a.name)} className="text-sm text-red-600 hover:underline">
-													Delete
-												</button>
-											</td>
-										</tr>
-									))
-								)}
-							</tbody>
-						</table>
+					<div className="space-y-4">
+						{loading ? (
+							<div className="text-center py-12 text-gray-500">
+								<p className="text-lg">Loading appointments...</p>
+							</div>
+						) : error ? (
+							<div className="text-center py-12 text-red-500">
+								<p className="text-lg">{error}</p>
+							</div>
+						) : filtered.length === 0 ? (
+							<div className="text-center py-12 text-gray-500">
+								<p className="text-lg">No appointments yet.</p>
+							</div>
+						) : (
+							filtered.map((a) => (
+								<div
+									key={a.firebaseKey}
+									className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100 overflow-hidden"
+								>
+									<div className="p-6">
+										<div className="flex items-start justify-between mb-4">
+											<div className="flex-1">
+												<h3 className="text-xl font-semibold text-gray-900 mb-1">{a.name}</h3>
+												<p className="text-gray-600 text-sm">{a.phone}</p>
+											</div>
+											<div className="text-right">
+												<div className="inline-block bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
+													{a.date}
+												</div>
+											</div>
+										</div>
+
+										<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 py-4 border-y border-gray-100">
+											<div>
+												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Time</p>
+												<p className="text-gray-900 font-medium mt-1">{a.time}</p>
+											</div>
+											<div>
+												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Age</p>
+												<p className="text-gray-900 font-medium mt-1">{a.age ?? "-"}</p>
+											</div>
+											<div>
+												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Booked On</p>
+												<p className="text-gray-900 font-medium mt-1 text-sm">{formatCreated(a.createdAt)}</p>
+											</div>
+											<div>
+												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</p>
+												<p className="text-gray-900 font-medium mt-1">
+													<span className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+														Pending
+													</span>
+												</p>
+											</div>
+										</div>
+
+										<div className="flex gap-3 justify-end">
+											<button
+												onClick={() => markAsCompleted(a.firebaseKey)}
+												className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+											>
+												Mark Completed
+											</button>
+											<button
+												onClick={() => showDeleteConfirm(a.firebaseKey, a.name)}
+												className="px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors font-medium text-sm"
+											>
+												Delete
+											</button>
+										</div>
+									</div>
+								</div>
+							))
+						)}
 					</div>
 					<ConfirmModal
 						open={confirmOpen}
