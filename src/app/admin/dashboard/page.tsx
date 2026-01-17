@@ -6,6 +6,7 @@ import { onAuthStateChanged, User, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import ConfirmModal from "@/components/ConfirmModal";
+import WeatherCard from "@/components/WeatherCard";
 
 type Appointment = {
 	id?: string;
@@ -82,25 +83,25 @@ export default function AdminPage() {
 	}, [user]);
 
 	async function deleteOne(firebaseKey?: string) {
-	 	if (!firebaseKey) return;
-	 	try {
-	 		console.log("Deleting appointment", firebaseKey);
-	 		await remove(ref(database, `oasis/appointments/${firebaseKey}`));
-	 	} catch (err) {
-	 		console.error("Failed to delete appointment", err);
-	 		setError("Failed to delete appointment");
-	 	}
+		if (!firebaseKey) return;
+		try {
+			console.log("Deleting appointment", firebaseKey);
+			await remove(ref(database, `oasis/appointments/${firebaseKey}`));
+		} catch (err) {
+			console.error("Failed to delete appointment", err);
+			setError("Failed to delete appointment");
+		}
 	}
 
 	async function markAsCompleted(firebaseKey?: string) {
-	 	if (!firebaseKey) return;
-	 	try {
-	 		console.log("Marking appointment as completed", firebaseKey);
-	 		await update(ref(database, `oasis/appointments/${firebaseKey}`), { status: "completed" });
-	 	} catch (err) {
-	 		console.error("Failed to mark appointment as completed", err);
-	 		setError("Failed to mark appointment as completed");
-	 	}
+		if (!firebaseKey) return;
+		try {
+			console.log("Marking appointment as completed", firebaseKey);
+			await update(ref(database, `oasis/appointments/${firebaseKey}`), { status: "completed" });
+		} catch (err) {
+			console.error("Failed to mark appointment as completed", err);
+			setError("Failed to mark appointment as completed");
+		}
 	}
 
 	const [confirmOpen, setConfirmOpen] = useState(false);
@@ -108,24 +109,24 @@ export default function AdminPage() {
 	const [pendingDeleteName, setPendingDeleteName] = useState<string | null>(null);
 
 	function showDeleteConfirm(key?: string, name?: string) {
-	 	if (!key) return;
-	 	setPendingDeleteKey(key);
-	 	setPendingDeleteName(name ?? null);
-	 	setConfirmOpen(true);
+		if (!key) return;
+		setPendingDeleteKey(key);
+		setPendingDeleteName(name ?? null);
+		setConfirmOpen(true);
 	}
 
 	async function handleConfirmDelete() {
-	 	if (!pendingDeleteKey) return;
-	 	await deleteOne(pendingDeleteKey);
-	 	setPendingDeleteKey(null);
-	 	setPendingDeleteName(null);
-	 	setConfirmOpen(false);
+		if (!pendingDeleteKey) return;
+		await deleteOne(pendingDeleteKey);
+		setPendingDeleteKey(null);
+		setPendingDeleteName(null);
+		setConfirmOpen(false);
 	}
 
 	function handleCancelDelete() {
-	 	setPendingDeleteKey(null);
-	 	setPendingDeleteName(null);
-	 	setConfirmOpen(false);
+		setPendingDeleteKey(null);
+		setPendingDeleteName(null);
+		setConfirmOpen(false);
 	}
 
 	async function logout() {
@@ -184,7 +185,9 @@ export default function AdminPage() {
 							</button>
 						</div>
 					</div>
-
+					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
+						<WeatherCard />
+					</div>
 					<div className="space-y-4">
 						{loading ? (
 							<div className="text-center py-12 text-gray-500">
@@ -233,15 +236,15 @@ export default function AdminPage() {
 											<div>
 												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</p>
 												<p className="text-gray-900 font-medium mt-1">
-												{a.status === "completed" ? (
-													<span className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
-														Completed
-													</span>
-												) : (
-													<span className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
-														Pending
-													</span>
-												)}
+													{a.status === "completed" ? (
+														<span className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+															Completed
+														</span>
+													) : (
+														<span className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+															Pending
+														</span>
+													)}
 												</p>
 											</div>
 										</div>
