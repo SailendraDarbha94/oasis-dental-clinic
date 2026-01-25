@@ -160,8 +160,10 @@ export default function AdminPage() {
 			<Header />
 			<main className="min-h-screen bg-gray-50 p-8">
 				<div className="max-w-5xl mx-auto">
-					<div className="flex items-center justify-between mb-8">
-						<h1 className="text-3xl font-bold text-gray-900">Appointments</h1>
+					<h1 className="text-lg w-full mb-4 text-center md:text-3xl font-bold text-gray-900">Appointments</h1>
+					<div className="flex items-center justify-between mb-8 max-w-full">
+						
+
 						<div className="flex items-center gap-3">
 							<input
 								value={queryText}
@@ -177,13 +179,17 @@ export default function AdminPage() {
 							>
 								Clear
 							</button>
-							<button
-								onClick={logout}
-								className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-							>
-								Logout
-							</button>
+
+
 						</div>
+					</div>
+					<div className="flex justify-center">
+						<button
+							onClick={logout}
+							className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+						>
+							Logout
+						</button>
 					</div>
 					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
 						<WeatherCard />
