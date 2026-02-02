@@ -162,7 +162,7 @@ export default function AdminPage() {
 				<div className="max-w-5xl mx-auto">
 					<h1 className="text-lg w-full mb-4 text-center md:text-3xl font-bold text-gray-900">Appointments</h1>
 					<div className="flex items-center justify-between mb-8 max-w-full">
-						
+
 
 						<div className="flex items-center gap-3">
 							<input
@@ -186,9 +186,15 @@ export default function AdminPage() {
 					<div className="flex justify-center">
 						<button
 							onClick={logout}
-							className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+							className="bg-red-600 mr-2 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
 						>
 							Logout
+						</button>
+						<button
+							onClick={() => router.push("/admin/dashboard/archive")}
+							className="bg-green-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+						>
+							Archive
 						</button>
 					</div>
 					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
