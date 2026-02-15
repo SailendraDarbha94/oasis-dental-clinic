@@ -1,7 +1,7 @@
 export default function AboutSection() {
   const stats = [
     { number: "5+", label: "Years Experience" },
-    { number: "1000+", label: "Happy Patients" },
+    { number: "100+", label: "Happy Patients" },
     { number: "3", label: "Expert Dentists" },
     { number: "24/7*365", label: "Expert Care" }
   ];
