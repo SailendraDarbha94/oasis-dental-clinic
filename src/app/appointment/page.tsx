@@ -109,7 +109,7 @@ export default function AppointmentPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-r from-pink-400 via-pink-200 to-yellow-100 flex flex-col">
+		<div className="min-h-screen bg-gradient-to-br from-teal-600 via-blue-300 to-blue-700 flex flex-col">
 			<Header />
 			<main className=" flex items-center justify-center py-12 px-4">
 				<div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8">
