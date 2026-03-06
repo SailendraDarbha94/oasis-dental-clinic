@@ -11,13 +11,13 @@ export default function AboutSection() {
       name: "Dr. Nani Monia",
       role: "Founder & General Dentist",
       image: "👩‍⚕️",
-      description: "BDS, (Rajiv Gandhi University of Health Sciences)"
+      description: ""
     },
     {
       name: "Dr. Farhan Khan",
       role: "Oral & Maxillofacial Surgeon",
       image: "👨‍⚕️",
-      description: "Oral & Maxillofacial Surgeon\nFellowship in Maxillofacial Trauma (Manipal Hospital) AO CMF Certified (Davos, Switzerland)"
+      description: "Fellowship in Maxillofacial Trauma (Manipal Hospital)"
     },
     {
       name: "Dr. Taw Mepu",
