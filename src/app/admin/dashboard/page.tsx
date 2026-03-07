@@ -18,6 +18,7 @@ type Appointment = {
 	time: string;
 	createdAt?: any;
 	status?: string;
+	service?: string;
 };
 
 export default function AdminPage() {
@@ -246,9 +247,9 @@ export default function AdminPage() {
 												<p className="text-gray-900 font-medium mt-1 text-sm">{formatCreated(a.createdAt)}</p>
 											</div>
 											<div>
-												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</p>
-												<p className="text-gray-900 font-medium mt-1">
-													{a.status === "completed" ? (
+												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Service</p>
+												<p className="text-gray-900 font-medium mt-1">{a.service}</p>
+													{/* {a.status === "completed" ? (
 														<span className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
 															Completed
 														</span>
@@ -257,7 +258,7 @@ export default function AdminPage() {
 															Pending
 														</span>
 													)}
-												</p>
+												</p> */}
 											</div>
 										</div>
 

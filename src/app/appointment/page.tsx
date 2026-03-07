@@ -11,6 +11,7 @@ type FormData = {
 	name: string;
 	phone: string;
 	age: string;
+	service: string;
 	date: string;
 	time: string;
 	createdAt?: string;
@@ -52,6 +53,7 @@ export default function AppointmentPage() {
 		name: "",
 		phone: "",
 		age: "",
+		service: "",
 		date: "",
 		time: "",
 	});
@@ -127,7 +129,7 @@ export default function AppointmentPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-teal-600 via-blue-300 to-blue-700 flex flex-col">
+		<div className="min-h-screen bg-gradient-to-br from-teal-700 via-blue-200 to-blue-700 flex flex-col">
 			<Header />
 			<main className=" flex items-center justify-center py-12 px-4">
 				<div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-8">
@@ -172,7 +174,27 @@ export default function AppointmentPage() {
 								{phoneError && <p className="mt-1 text-sm text-red-600">{phoneError}</p>}
 							</div>
 
-							<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+							<div>
+							<label className="block text-sm font-medium text-gray-700 mb-1">Service</label>
+							<select
+								name="service"
+								required
+								value={form.service}
+								onChange={(e) => setForm((s) => ({ ...s, service: e.target.value }))}
+								className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+							>
+								<option value="">Select a service</option>
+								<option value="consultation">Consultation</option>
+								<option value="general">General Dentistry</option>
+								<option value="cosmetic">Cosmetic Dentistry</option>
+								<option value="orthodontics">Orthodontics</option>
+								<option value="surgery">Oral Surgery</option>
+								<option value="emergency">Emergency Care</option>
+								<option value="pediatric">Pediatric Dentistry</option>
+							</select>
+						</div>
+
+						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 								<div className="sm:col-span-1">
 									<label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
 									<input

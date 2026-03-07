@@ -106,6 +106,12 @@ export default function ArchivePage() {
 					<h1 className="text-lg w-full mb-4 text-center md:text-3xl font-bold text-gray-900">Archive</h1>
 					<div className="flex justify-center mb-8">
 						<button
+							onClick={() => router.push("/admin/dashboard")}
+							className="bg-blue-600 text-white mr-4 px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+						>
+							Back to Dashboard
+						</button>
+						<button
 							onClick={logout}
 							className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
 						>
