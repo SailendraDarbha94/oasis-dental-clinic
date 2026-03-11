@@ -1,10 +1,10 @@
 "use client";
 import Header from "@/components/Header";
+import DateTimeSlotPicker from "@/components/DateTimeSlotPicker";
 import { useToast } from "@/lib/toastContext";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { saveAppointmentToRTDB, AppointmentRecord } from "@/lib/firebase";
-// import { getDatabase, ref, onValue } from "firebase/database";
 
 type FormData = {
 	id?: string;
@@ -18,24 +18,6 @@ type FormData = {
 };
 
 const STORAGE_KEY = "oasis_appointments";
-
-// Generate time slots from 10 AM to 6 PM with 30-minute intervals, excluding lunch (1 PM - 3 PM)
-const TIME_SLOTS = [
-	"10:00 AM",
-	"10:30 AM",
-	"11:00 AM",
-	"11:30 AM",
-	"12:00 PM",
-	"12:30 PM",
-	// Lunch break from 1:00 PM to 3:00 PM
-	"3:00 PM",
-	"3:30 PM",
-	"4:00 PM",
-	"4:30 PM",
-	"5:00 PM",
-	"5:30 PM",
-	"6:00 PM",
-];
 
 function saveAppointment(a: FormData) {
 	try {
@@ -194,51 +176,26 @@ export default function AppointmentPage() {
 							</select>
 						</div>
 
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-								<div className="sm:col-span-1">
-									<label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-									<input
-										name="age"
-										type="number"
-										min={0}
-										required
-										value={form.age}
-										onChange={handleChange}
-										placeholder="Age"
-										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-									/>
-								</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+							<input
+								name="age"
+								type="number"
+								min={0}
+								required
+								value={form.age}
+								onChange={handleChange}
+								placeholder="Age"
+								className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+							/>
+						</div>
 
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-									<input
-										name="date"
-										type="date"
-										required
-										value={form.date}
-										onChange={handleChange}
-										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-									/>
-								</div>
-
-								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
-									<select
-										name="time"
-										required
-										value={form.time}
-										onChange={(e) => setForm((s) => ({ ...s, time: e.target.value }))}
-										className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
-									>
-										<option value="">Select time</option>
-										{TIME_SLOTS.map((slot) => (
-											<option key={slot} value={slot}>
-												{slot}
-											</option>
-										))}
-									</select>
-								</div>
-							</div>
+						<DateTimeSlotPicker
+							date={form.date}
+							time={form.time}
+							onDateChange={(date) => setForm((s) => ({ ...s, date }))}
+							onTimeChange={(time) => setForm((s) => ({ ...s, time }))}
+						/>
 
 							<div className="pt-2">
 								<button
