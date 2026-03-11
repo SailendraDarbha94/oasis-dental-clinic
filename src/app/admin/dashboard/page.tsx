@@ -194,10 +194,16 @@ export default function AdminPage() {
 						</button>
 						<button
 							onClick={() => router.push("/admin/dashboard/archive")}
-							className="bg-green-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+							className="bg-blue-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
 						>
 							Archive
 						</button>
+						{/* <button
+							onClick={() => router.push("/admin/dashboard/billing")}
+							className="bg-green-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+						>
+							Billing
+						</button> */}
 					</div>
 					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
 						<WeatherCard />
@@ -250,7 +256,7 @@ export default function AdminPage() {
 											<div>
 												<p className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Service</p>
 												<p className="text-gray-900 font-medium mt-1">{a.service}</p>
-													{/* {a.status === "completed" ? (
+												{/* {a.status === "completed" ? (
 														<span className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
 															Completed
 														</span>
