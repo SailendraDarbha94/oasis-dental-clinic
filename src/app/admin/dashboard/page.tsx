@@ -152,6 +152,7 @@ export default function AdminPage() {
 	}
 
 	const filtered = appointments.filter((a) => {
+		if (a.status === "completed") return false;
 		if (!queryText.trim()) return true;
 		return a.name.toLowerCase().includes(queryText.toLowerCase()) || a.phone.includes(queryText);
 	});
