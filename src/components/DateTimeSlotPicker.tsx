@@ -140,7 +140,7 @@ export default function DateTimeSlotPicker({ date, time, onDateChange, onTimeCha
 		<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 			{/* Date picker */}
 			<div>
-				<label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+				<label className="block text-sm font-medium text-black mb-1">Date</label>
 				<input
 					name="date"
 					type="date"
@@ -148,16 +148,16 @@ export default function DateTimeSlotPicker({ date, time, onDateChange, onTimeCha
 					min={today}
 					value={date}
 					onChange={(e) => onDateChange(e.target.value)}
-					className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300"
+					className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
 				/>
 			</div>
 
 			{/* Time slot picker */}
 			<div>
-				<label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
+				<label className="block text-sm font-medium text-black mb-1">Time</label>
 
 				{loadingSlots ? (
-					<div className="w-full rounded-lg border border-gray-200 px-4 py-2 text-gray-400 text-sm">
+					<div className="w-full rounded-lg border border-black px-4 py-2 text-black text-sm">
 						Loading available slots…
 					</div>
 				) : (
@@ -167,7 +167,7 @@ export default function DateTimeSlotPicker({ date, time, onDateChange, onTimeCha
 						value={time}
 						onChange={(e) => handleSlotSelect(e.target.value)}
 						disabled={!date}
-						className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-300 disabled:opacity-50 disabled:cursor-not-allowed"
+						className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						<option value="">{date ? "Select a time slot" : "Pick a date first"}</option>
 						{slotsToDisplay.map((slot) => (
