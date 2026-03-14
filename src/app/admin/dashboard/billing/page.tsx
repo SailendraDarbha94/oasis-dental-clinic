@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import dynamic from 'next/dynamic';
 
 // ─── Colour palette ───────────────────────────────────────────────────────────
 const TEAL      = '#0d9488';
@@ -14,6 +15,14 @@ const GRAY_500  = '#6b7280';
 const GRAY_700  = '#374151';
 const GRAY_900  = '#111827';
 const WHITE     = '#ffffff';
+
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  },
+);
 
 const s = StyleSheet.create({
     // ── Page ──────────────────────────────────────────────────────────────────
