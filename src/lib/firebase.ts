@@ -1,7 +1,7 @@
 import { getApps, getApp, initializeApp } from "firebase/app";
 import { getAuth, browserLocalPersistence } from 'firebase/auth';
 import { getDatabase, ref, push, set, serverTimestamp } from "firebase/database";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
 // Firebase configuration
@@ -40,10 +40,30 @@ export type AppointmentRecord = {
   name: string;
   phone: string;
   age?: string;
+  gender?: string;
   date: string;
   time: string;
   createdAt?: any;
   status?: string;
+};
+
+export type BillRecord = {
+  id?: string;
+  firebaseKey?: string;
+  patientName: string;
+  phone: string;
+  age: string;
+  gender: string;
+  service: string;
+  medication: string;
+  postOpInstructions: string;
+  amount: number;
+  tax: number;
+  total: number;
+  invoiceNumber: string;
+  createdAt?: any;
+  storageUrl: string;
+  fileName: string;
 };
 
 export async function saveAppointmentToRTDB(appointment: AppointmentRecord) {
@@ -62,4 +82,21 @@ export async function saveAppointmentToRTDB(appointment: AppointmentRecord) {
 
   await set(newRef, payload);
   return newRef.key;
+}
+
+export async function saveBillMetadataToRTDB(bill: Omit<BillRecord, 'firebaseKey'>) {
+  const billsRef = ref(database, "oasis/bills");
+  const newRef = push(billsRef);
+  const payload = {
+    ...bill,
+    createdAt: serverTimestamp(),
+  };
+  await set(newRef, payload);
+  return newRef.key;
+}
+
+export async function uploadBillPDF(fileName: string, blob: Blob): Promise<string> {
+  const fileRef = storageRef(storage, `oasis/bills/${fileName}`);
+  await uploadBytes(fileRef, blob);
+  return getDownloadURL(fileRef);
 }

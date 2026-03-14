@@ -13,6 +13,7 @@ type Appointment = {
 	name: string;
 	phone: string;
 	age?: string;
+	gender?: string;
 	date: string;
 	time: string;
 	createdAt?: any;
@@ -238,6 +239,20 @@ export default function AdminPage() {
 										</div>
 
 										<div className="flex gap-3 justify-end">
+											<button
+												onClick={() => {
+													const params = new URLSearchParams();
+													if (a.name) params.set("name", a.name);
+													if (a.phone) params.set("phone", a.phone);
+													if (a.age) params.set("age", a.age);
+													if (a.gender) params.set("gender", a.gender);
+													if (a.service) params.set("service", a.service);
+													router.push(`/admin/dashboard/billing/new?${params.toString()}`);
+												}}
+												className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+											>
+												Generate Bill
+											</button>
 											<button
 												onClick={() => markAsCompleted(a.firebaseKey)}
 												className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
