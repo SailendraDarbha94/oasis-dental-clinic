@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { database, auth } from "@/lib/firebase";
 import { ref, onValue, off, remove, update } from "firebase/database";
-import { onAuthStateChanged, User, signOut } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 import ConfirmModal from "@/components/ConfirmModal";
 import WeatherCard from "@/components/WeatherCard";
 
@@ -130,16 +129,6 @@ export default function AdminPage() {
 		setConfirmOpen(false);
 	}
 
-	async function logout() {
-		try {
-			await signOut(auth);
-			router.replace("/");
-		} catch (err) {
-			console.error("Sign out failed", err);
-			setError("Failed to sign out");
-		}
-	}
-
 	function formatCreated(at: any) {
 		if (!at) return "-";
 		// RTDB serverTimestamp becomes a number (ms) once resolved
@@ -159,7 +148,6 @@ export default function AdminPage() {
 
 	return (
 		<>
-			<Header />
 			<main className="min-h-screen bg-gray-50 p-8">
 				<div className="max-w-5xl mx-auto">
 					<h1 className="text-lg w-full mb-4 text-center md:text-3xl font-bold text-gray-900">Appointments</h1>
@@ -184,26 +172,6 @@ export default function AdminPage() {
 
 
 						</div>
-					</div>
-					<div className="flex justify-center">
-						<button
-							onClick={logout}
-							className="bg-red-600 mr-2 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-						>
-							Logout
-						</button>
-						<button
-							onClick={() => router.push("/admin/dashboard/archive")}
-							className="bg-blue-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-						>
-							Archive
-						</button>
-						{/* <button
-							onClick={() => router.push("/admin/dashboard/billing")}
-							className="bg-green-600 ml-2 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-						>
-							Billing
-						</button> */}
 					</div>
 					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
 						<WeatherCard />

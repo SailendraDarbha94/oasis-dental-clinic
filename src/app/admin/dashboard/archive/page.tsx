@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { database, auth } from "@/lib/firebase";
 import { ref, onValue, off } from "firebase/database";
-import { onAuthStateChanged, User, signOut } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
 
 type Appointment = {
 	id?: string;
@@ -75,16 +74,6 @@ export default function ArchivePage() {
 		};
 	}, [user]);
 
-	async function logout() {
-		try {
-			await signOut(auth);
-			router.replace("/");
-		} catch (err) {
-			console.error("Sign out failed", err);
-			setError("Failed to sign out");
-		}
-	}
-
 	function formatCreated(at: any) {
 		if (!at) return "-";
 		if (typeof at === "number") return new Date(at).toLocaleString();
@@ -100,24 +89,9 @@ export default function ArchivePage() {
 
 	return (
 		<>
-			<Header />
 			<main className="min-h-screen bg-gray-50 p-8">
 				<div className="max-w-5xl mx-auto">
 					<h1 className="text-lg w-full mb-4 text-center md:text-3xl font-bold text-gray-900">Archive</h1>
-					<div className="flex justify-center mb-8">
-						<button
-							onClick={() => router.push("/admin/dashboard")}
-							className="bg-blue-600 text-white mr-4 px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-						>
-							Back to Dashboard
-						</button>
-						<button
-							onClick={logout}
-							className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-						>
-							Logout
-						</button>
-					</div>
 					<div className="space-y-4">
 						{loading ? (
 							<div className="text-center py-12 text-gray-500">

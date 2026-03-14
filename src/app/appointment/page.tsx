@@ -11,6 +11,7 @@ type FormData = {
 	name: string;
 	phone: string;
 	age: string;
+	gender: string;
 	service: string;
 	date: string;
 	time: string;
@@ -35,6 +36,7 @@ export default function AppointmentPage() {
 		name: "",
 		phone: "",
 		age: "",
+		gender: "",
 		service: "",
 		date: "",
 		time: "",
@@ -114,7 +116,7 @@ export default function AppointmentPage() {
 		<div className="min-h-screen bg-white flex flex-col">
 			<Header />
 			<main className=" flex items-center justify-center py-12 px-4">
-				<div className="w-full max-w-2xl bg-gradient-to-br from-teal-700 via-blue-200 to-blue-700 rounded-2xl shadow-xl p-8">
+				<div className="w-full max-w-2xl bg-gradient-to-br from-blue-50 via-blue-200 to-blue-500 rounded-2xl shadow-xl p-8">
 					<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Book An Appointment</h1>
 
 					{submitted ? (
@@ -189,7 +191,21 @@ export default function AppointmentPage() {
 									className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
 								/>
 							</div>
-
+						<div>
+							<label className="block text-sm font-medium text-black mb-1">Gender</label>
+							<select
+								name="gender"
+								required
+								value={form.gender}
+								onChange={(e) => setForm((s) => ({ ...s, gender: e.target.value }))}
+								className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+							>
+								<option value="">Select gender</option>
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
 							<DateTimeSlotPicker
 								date={form.date}
 								time={form.time}

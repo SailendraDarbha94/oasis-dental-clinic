@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
-import { useRouter } from 'next/navigation';
 
 // ─── Colour palette ───────────────────────────────────────────────────────────
 const TEAL      = '#0d9488';
@@ -324,8 +323,6 @@ const fmt = (n: number) => `₹ ${n.toLocaleString('en-IN', { minimumFractionDig
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function BillingPage() {
-    const router = useRouter();
-
     const MyDocument = () => (
         <Document title={`Invoice ${INVOICE.number} – Oasis Dental Clinic`}>
             <Page size="A4" style={s.page}>
@@ -465,14 +462,6 @@ export default function BillingPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-            <div className="flex justify-center mb-6">
-                <button
-                    onClick={() => router.push('/admin/dashboard')}
-                    className="bg-teal-600 text-white px-5 py-2 rounded-lg hover:bg-teal-700 transition-colors font-medium shadow-sm"
-                >
-                    ← Back to Dashboard
-                </button>
-            </div>
             <PDFViewer width="900" height="700" className="rounded-xl shadow-2xl border border-gray-200">
                 <MyDocument />
             </PDFViewer>
