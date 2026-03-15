@@ -51,6 +51,7 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+      <p>hello</p>
     </section>
   );
 }

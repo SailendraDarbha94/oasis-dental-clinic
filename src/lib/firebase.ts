@@ -100,3 +100,33 @@ export async function uploadBillPDF(fileName: string, blob: Blob): Promise<strin
   await uploadBytes(fileRef, blob);
   return getDownloadURL(fileRef);
 }
+
+export type StaffRecord = {
+  id?: string;
+  firebaseKey?: string;
+  name: string;
+  age: string;
+  qualification: string;
+  phone: string;
+  email: string;
+  role: string;
+  photoUrl: string;
+  createdAt?: any;
+};
+
+export async function saveStaffToRTDB(staff: Omit<StaffRecord, 'firebaseKey'>) {
+  const staffRef = ref(database, "oasis/staff");
+  const newRef = push(staffRef);
+  const payload = {
+    ...staff,
+    createdAt: serverTimestamp(),
+  };
+  await set(newRef, payload);
+  return newRef.key;
+}
+
+export async function uploadStaffPhoto(fileName: string, file: File): Promise<string> {
+  const fileRef = storageRef(storage, `oasis/staff/${fileName}`);
+  await uploadBytes(fileRef, file);
+  return getDownloadURL(fileRef);
+}
