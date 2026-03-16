@@ -10,6 +10,7 @@ const navLinks = [
 	{ href: "/admin/dashboard", label: "Dashboard" },
 	{ href: "/admin/dashboard/archive", label: "Archive" },
 	{ href: "/admin/dashboard/billing", label: "Billing" },
+	{ href: "/admin/dashboard/consent_forms", label: "Consent Forms" },
 	{ href: "/admin/dashboard/staff", label: "Staff" },
 ];
 

@@ -130,3 +130,35 @@ export async function uploadStaffPhoto(fileName: string, file: File): Promise<st
   await uploadBytes(fileRef, file);
   return getDownloadURL(fileRef);
 }
+
+export type ConsentFormRecord = {
+  id?: string;
+  firebaseKey?: string;
+  patientName: string;
+  age: string;
+  gender: string;
+  doctorName: string;
+  toothNumbers: string;
+  formType: "filling" | "rct";
+  consentNumber: string;
+  storageUrl: string;
+  fileName: string;
+  createdAt?: any;
+};
+
+export async function saveConsentFormToRTDB(record: Omit<ConsentFormRecord, 'firebaseKey'>) {
+  const consentRef = ref(database, "oasis/consent-forms");
+  const newRef = push(consentRef);
+  const payload = {
+    ...record,
+    createdAt: serverTimestamp(),
+  };
+  await set(newRef, payload);
+  return newRef.key;
+}
+
+export async function uploadConsentFormPDF(fileName: string, blob: Blob): Promise<string> {
+  const fileRef = storageRef(storage, `oasis/consent-forms/${fileName}`);
+  await uploadBytes(fileRef, blob);
+  return getDownloadURL(fileRef);
+}

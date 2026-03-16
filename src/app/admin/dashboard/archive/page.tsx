@@ -154,6 +154,18 @@ export default function ArchivePage() {
 												onClick={() => {
 													const params = new URLSearchParams();
 													if (a.name) params.set("name", a.name);
+													if (a.age) params.set("age", a.age);
+													if (a.gender) params.set("gender", a.gender);
+													router.push(`/admin/dashboard/consent_forms/new?${params.toString()}`);
+												}}
+												className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+											>
+												Generate Consent Form
+											</button>
+											<button
+												onClick={() => {
+													const params = new URLSearchParams();
+													if (a.name) params.set("name", a.name);
 													if (a.phone) params.set("phone", a.phone);
 													if (a.age) params.set("age", a.age);
 													if (a.gender) params.set("gender", a.gender);
