@@ -139,7 +139,7 @@ export type ConsentFormRecord = {
   gender: string;
   doctorName: string;
   toothNumbers: string;
-  formType: "filling" | "rct";
+  formType: string;
   consentNumber: string;
   storageUrl: string;
   fileName: string;

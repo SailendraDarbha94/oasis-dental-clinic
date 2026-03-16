@@ -113,11 +113,11 @@ export default function AppointmentPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-white flex flex-col">
+		<div className="min-h-screen bg-gray-200 flex flex-col">
 			<Header />
 			<main className=" flex items-center justify-center py-12 px-4">
-				<div className="w-full max-w-2xl bg-gradient-to-br from-blue-50 via-blue-200 to-blue-500 rounded-2xl shadow-xl p-8">
-					<h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">Book An Appointment</h1>
+				<div className="w-full max-w-2xl bg-gradient-to-br from-teal-600 to-blue-700 rounded-2xl shadow-xl p-8">
+					<h1 className="text-2xl md:text-3xl font-bold text-gray-200 mb-4 text-center">Book An Appointment</h1>
 
 					{submitted ? (
 						<div className="p-6 bg-teal-50 rounded-lg border border-teal-100">
@@ -126,7 +126,7 @@ export default function AppointmentPage() {
 					) : (
 						<form onSubmit={handleSubmit} noValidate className="space-y-4">
 							<div>
-								<label className="block text-sm font-medium text-black mb-1">Name</label>
+								<label className="block text-sm font-medium text-gray-200 mb-1">Name</label>
 								<input
 									name="name"
 									type="text"
@@ -134,12 +134,12 @@ export default function AppointmentPage() {
 									value={form.name}
 									onChange={handleChange}
 									placeholder="Full name"
-									className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
 								/>
 							</div>
 
 							<div>
-								<label className="block text-sm font-medium text-black mb-1">Phone</label>
+								<label className="block text-sm font-medium text-gray-200 mb-1">Phone</label>
 								<input
 									name="phone"
 									type="tel"
@@ -152,20 +152,20 @@ export default function AppointmentPage() {
 									placeholder="Enter 10 digit phone number"
 									className={`w-full rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 ${phoneError
 										? "border-red-500 focus:ring-red-300"
-										: "border-black focus:ring-black"
+										: "border-gray-200 focus:ring-gray-200"
 										}`}
 								/>
 								{phoneError && <p className="mt-1 text-sm text-red-600">{phoneError}</p>}
 							</div>
 
 							<div>
-								<label className="block text-sm font-medium text-black mb-1">Service</label>
+								<label className="block text-sm font-medium text-gray-200 mb-1">Service</label>
 								<select
 									name="service"
 									required
 									value={form.service}
 									onChange={(e) => setForm((s) => ({ ...s, service: e.target.value }))}
-									className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
 								>
 									<option value="">Select a service</option>
 									<option value="consultation">Consultation</option>
@@ -179,7 +179,7 @@ export default function AppointmentPage() {
 							</div>
 
 							<div>
-								<label className="block text-sm font-medium text-black mb-1">Age</label>
+								<label className="block text-sm font-medium text-gray-200 mb-1">Age</label>
 								<input
 									name="age"
 									type="number"
@@ -188,17 +188,17 @@ export default function AppointmentPage() {
 									value={form.age}
 									onChange={handleChange}
 									placeholder="Age"
-									className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+									className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
 								/>
 							</div>
 						<div>
-							<label className="block text-sm font-medium text-black mb-1">Gender</label>
+							<label className="block text-sm font-medium text-gray-200 mb-1">Gender</label>
 							<select
 								name="gender"
 								required
 								value={form.gender}
 								onChange={(e) => setForm((s) => ({ ...s, gender: e.target.value }))}
-								className="w-full rounded-lg border border-black px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+								className="w-full rounded-lg border border-gray-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
 							>
 								<option value="">Select gender</option>
 								<option value="male">Male</option>
@@ -217,7 +217,7 @@ export default function AppointmentPage() {
 								<button
 									type="submit"
 									disabled={loading}
-									className={`w-3/5 ${loading ? "opacity-60 cursor-not-allowed" : ""} bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-sm transition-colors`}
+									className={`w-3/5 ${loading ? "opacity-60 cursor-not-allowed" : ""} bg-blue-200 hover:bg-blue-700 text-black hover:text-white px-6 py-3 rounded-lg font-semibold shadow-sm transition-colors`}
 								>
 									{loading ? "Submitting..." : "Submit"}
 								</button>
