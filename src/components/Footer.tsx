@@ -62,10 +62,10 @@ export default function Footer() {
                 <span className="mr-2">📞</span>
                 <span>(+91) 9108980207</span>
               </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <span className="mr-2">📧</span>
                 <span>info@oasisdental.com</span>
-              </div>
+              </div> */}
             </div>
           </div>
 

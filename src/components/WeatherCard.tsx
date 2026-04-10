@@ -50,81 +50,35 @@ export default function WeatherCard() {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-2">
+    <div className="w-full flex items-center justify-center px-4 py-2">
       {loading ? (
-        <div className="animate-pulse text-gray-400 text-lg font-medium">
-          Loading weather...
-        </div>
+        <div className="animate-pulse text-gray-400 text-sm">Loading weather...</div>
       ) : error ? (
-        <div className="text-red-500 text-lg font-medium">{error}</div>
+        <div className="text-red-400 text-sm">{error}</div>
       ) : weather ? (
-        <div className="w-full max-w-sm">
-          {/* Apple-style Weather Card */}
-          <div className="bg-white rounded-3xl shadow-lg overflow-hidden backdrop-blur-xl bg-opacity-80 border border-white/30">
-            {/* Gradient Header */}
-            <div className="bg-gradient-to-br from-sky-400 via-blue-400 to-teal-400 p-8 text-center">
-              <p className="text-white/80 text-sm font-medium mb-2">Today</p>
-              <h2 className="text-white text-5xl font-bold mb-2">
-                {weather.temp}°
-              </h2>
-              <p className="text-white/90 text-base font-medium">
-                {weather.condition}
-              </p>
-            </div>
+        <div className="flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-2xl px-5 py-3 shadow-sm">
+          {/* Temperature */}
+          <div className="flex items-end gap-1">
+            <span className="text-3xl font-light text-sky-500 leading-none">{weather.temp}°</span>
+            <span className="text-xs text-gray-400 mb-0.5 leading-none">C</span>
+          </div>
 
-            {/* Content */}
-            <div className="p-8">
-              {/* Min/Max Temperature */}
-              <div className="grid grid-cols-2 gap-2 pb-2">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center border border-blue-200/50">
-                  <p className="text-gray-600 text-xs font-medium mb-2 uppercase tracking-wide">
-                    High
-                  </p>
-                  <p className="text-blue-600 text-4xl font-bold">
-                    {weather.max_temp}°
-                  </p>
-                </div>
-                <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-6 text-center border border-cyan-200/50">
-                  <p className="text-gray-600 text-xs font-medium mb-2 uppercase tracking-wide">
-                    Low
-                  </p>
-                  <p className="text-cyan-600 text-4xl font-bold">
-                    {weather.min_temp}°
-                  </p>
-                </div>
-              </div>
+          <div className="w-px h-8 bg-gray-200" />
 
-              {/* Weather Details */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">💧</span>
-                    <div>
-                      <p className="text-gray-600 text-xs font-medium uppercase tracking-wide">
-                        Humidity
-                      </p>
-                      <p className="text-gray-900 text-lg font-semibold">
-                        {weather.humidity}%
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          {/* Condition & High/Low */}
+          <div className="flex flex-col gap-0.5">
+            <span className="text-xs font-medium text-gray-600">{weather.condition}</span>
+            <span className="text-xs text-gray-400">
+              H:{weather.max_temp}° · L:{weather.min_temp}°
+            </span>
+          </div>
 
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">💨</span>
-                    <div>
-                      <p className="text-gray-600 text-xs font-medium uppercase tracking-wide">
-                        Wind Speed
-                      </p>
-                      <p className="text-gray-900 text-lg font-semibold">
-                        {weather.wind_speed} m/s
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="w-px h-8 bg-gray-200" />
+
+          {/* Details */}
+          <div className="flex items-center gap-3 text-xs text-gray-500">
+            <span>💧 {weather.humidity}%</span>
+            <span>💨 {weather.wind_speed} m/s</span>
           </div>
         </div>
       ) : null}

@@ -174,7 +174,7 @@ export default function AdminPage() {
 
 						</div>
 					</div>
-					<div id='weather' className="bg-gradient-to-br from-teal-50 to-blue-50 py-4">
+					<div id='weather' className="mb-2">
 						<WeatherCard />
 					</div>
 					<div className="space-y-4">
