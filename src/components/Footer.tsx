@@ -20,7 +20,7 @@ export default function Footer() {
             <p className="text-gray-300 text-sm mb-4">
               Your comfort and oral health are our top priorities. We provide comprehensive dental care in a welcoming environment.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors">
                 <span className="sr-only">Facebook</span>
                 📘
@@ -33,7 +33,7 @@ export default function Footer() {
                 <span className="sr-only">Instagram</span>
                 📷
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* Services */}
