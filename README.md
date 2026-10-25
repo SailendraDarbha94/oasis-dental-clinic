@@ -1,2 +1,2 @@
-readne update : live in production make changes
+change readne update : live in production make changes
 update readme
